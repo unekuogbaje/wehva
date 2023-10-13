@@ -4,20 +4,38 @@ import '../components/style.css'
 
 function SearchMain() {
   const [searchTerm, setSearchTerm] = useState("Lagos");
+  const [tempInfo, setTempInfo] = useState({});
   
   const getWeatherInfo = async () => {
     try{
-      let url = `https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&appid=003cc376b1d5b53cf7682e38515a0663`;
+      let url = `https://api.openweathermap.org/data/2.5/weather?q=${searchTerm}&units=metric&appid=003cc376b1d5b53cf7682e38515a0663`;
       
       let res = await fetch(url);
       let data = await res.json();
-      console.log(data);
+      
+      const {temp, humidity, pressure} = data.main
+      const { main: weatherType } = data.weather[0];
+      const { name } = data;
+      const { speed } = data.wind;
+      const { country, sunset } = data.sys;
+
+      const myNewWeatherInfo = {
+        temp,
+        humidity,
+        pressure,
+        weatherType,
+        name,
+        speed,
+        country,
+        sunset,
+      };
+
+      setTempInfo(myNewWeatherInfo)
+      // console.log(data);
     } catch (error) {
       console.log(error);
     }
   }
-
-  // https://api.openweathermap.org/data/2.5/weather?q={city name}&appid=003cc376b1d5b53cf7682e38515a0663
 
   useEffect( () =>{
     getWeatherInfo()
@@ -38,7 +56,7 @@ function SearchMain() {
           </button>
         </div>
       </div>
-      <WeatherDetails/>
+      <WeatherDetails {...tempInfo}/>
     </Fragment>
   )
 }

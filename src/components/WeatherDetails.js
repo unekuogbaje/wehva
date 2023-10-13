@@ -46,17 +46,17 @@ function WeatherDetails({
     <Fragment>
       <article className='widget'>
         <div className="weatherIcon">
-          <i className="wi wi-night-sleet"></i>
+          <i className={`wi ${weatherState}`}></i>
         </div>
 
         <div className="weatherInfo">
           <div className="temperature">
-            <span>23.99{temp}&deg;</span>
+            <span>{temp}&deg;</span>
           </div>
 
           <div className="description">
-            <div className="weatherCondition">Cloudy</div>
-            <div className="place">Lagos</div>
+            <div className="weatherCondition">{weatherType}</div>
+            <div className="place">{name}, {country}</div>
           </div>
         </div>
         <div className="date">{new Date().toLocaleString()}</div>
@@ -67,7 +67,7 @@ function WeatherDetails({
                 <i className={'wi wi-sunset'}></i>
               </p>
               <p className="extra-info-leftside">
-                6:00 PM <br/>
+                {timeStr} PM <br/>
                 Sunset
               </p>
             </div>
@@ -77,7 +77,7 @@ function WeatherDetails({
                 <i className={'wi wi-humidity'}></i>
               </p>
               <p className="extra-info-leftside">
-                222 <br/>
+                {humidity} <br/>
                 Himidity
               </p>
             </div>
@@ -89,7 +89,7 @@ function WeatherDetails({
                 <i className={'wi wi-rain'}></i>
               </p>
               <p className="extra-info-leftside">
-                888 <br/>
+                {pressure} <br/>
                 Pressure
               </p>
             </div>
@@ -99,7 +99,7 @@ function WeatherDetails({
                 <i className={'wi wi-strong-wind'}></i>
               </p>
               <p className="extra-info-leftside">
-                444 <br/>
+                {speed} <br/>
                 Speed
               </p>
             </div>
